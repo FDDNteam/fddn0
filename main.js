@@ -39,7 +39,7 @@
       link.innerText = fork.full_name
       link.setAttribute('href', '#' + fork.full_name)
       link.addEventListener('click', function() {
-        renderIframe(ghPages)
+        renderIframe(ghPages + '?' + Date.now())
         ;[].forEach.call(
           document.querySelectorAll('a.bg-blue.selected'),
           function(el) {
