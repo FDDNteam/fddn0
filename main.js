@@ -34,7 +34,7 @@
       '<ol><li>首先 fork ' +
       BASE_REPO_URL +
       '</li>' +
-      '<li><b>做一些修改，push（不然会 404）</b></li>' +
+      '<li><b>做一些修改，push（否则不会生效）</b></li>' +
       '<li>于是就会出现在左侧</li>' +
       '</ol>' +
       '</body></html>'
@@ -42,12 +42,17 @@
 
   getForks().then(function(data) {
     data.forEach(function(fork) {
+      if (!fork.has_pages) {
+        return
+      }
+      
       var ghPages = 'https://' + fork.owner.login + '.github.io/' + fork.name
 
       var link = $('A')
-      link.className = 'pa1 link black dim'
-      link.innerText = fork.full_name
+      link.className = 'pa1 link black dim db'
+      link.innerHTML = fork.name + '<br/>@' + fork.owner.login
       link.setAttribute('href', '#' + fork.full_name)
+      link.setAttribute('title', fork.description)
       link.addEventListener('click', function() {
         renderIframe('data:text/html,<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body>loading...</body></html>')
         setTimeout(renderIframe, 10, ghPages + '?' + Date.now())
