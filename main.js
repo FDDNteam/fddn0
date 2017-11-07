@@ -2,6 +2,7 @@
 
 ;(function(window, document, undefined) {
   var BASE_REPO = 'dragonly/damnsimplegame'
+  var BASE_REPO_URL = 'https://github.com/' + BASE_REPO
 
   var $repos = document.getElementById('repos')
   var $iframe = document.getElementById('iframe')
@@ -25,9 +26,12 @@
   // render
   renderIframe(
     'data:text/html,' +
-      'Check out https://github.com/' +
-      BASE_REPO +
-      ' for more information.'
+      '<ol><li>首先 fork ' +
+      BASE_REPO_URL +
+      '</li>' +
+      '<li><b>做一些修改，push（不然会 404）</b></li>' +
+      '<li>于是就会出现在左侧</li>' +
+      '</ol>'
   )
 
   getForks().then(function(data) {
@@ -35,28 +39,28 @@
       var ghPages = 'https://' + fork.owner.login + '.github.io/' + fork.name
 
       var link = $('A')
-      link.className = 'pa1 link black dim white'
+      link.className = 'pa1 link black dim'
       link.innerText = fork.full_name
       link.setAttribute('href', '#' + fork.full_name)
       link.addEventListener('click', function() {
         renderIframe(ghPages + '?' + Date.now())
         ;[].forEach.call(
-          document.querySelectorAll('a.bg-blue.selected'),
+          document.querySelectorAll('a.bg-black.white.selected'),
           function(el) {
-            el.className = 'pa1 link black dim white'
+            el.className = 'pa1 link black dim'
           }
         )
-        link.className += ' bg-blue selected'
+        link.className += ' bg-black white selected'
       })
 
       var info = $('DIV')
       info.className = 'fr'
       info.innerHTML =
-        '<a class="link dim white mr2" href="' +
+        '<a class="link dim silver mr2" href="' +
         fork.html_url +
-        '" target="_blank">⭐' +
+        '" target="_blank">⭐ ' +
         fork.stargazers_count +
-        '</a><a class="link dim white" href="' +
+        '</a><a class="link dim silver" href="' +
         fork.html_url +
         '/issues" target="_blank">💬</a>'
 
