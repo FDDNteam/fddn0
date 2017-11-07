@@ -26,12 +26,14 @@
   // render
   renderIframe(
     'data:text/html,' +
+      '<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body>'
       '<ol><li>首先 fork ' +
       BASE_REPO_URL +
       '</li>' +
       '<li><b>做一些修改，push（不然会 404）</b></li>' +
       '<li>于是就会出现在左侧</li>' +
-      '</ol>'
+      '</ol>' +
+      '</body></html>'
   )
 
   getForks().then(function(data) {
@@ -43,8 +45,8 @@
       link.innerText = fork.full_name
       link.setAttribute('href', '#' + fork.full_name)
       link.addEventListener('click', function() {
-        renderIframe('data:text/html,loading...')
-        renderIframe(ghPages + '?' + Date.now())
+        renderIframe('data:text/html,<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body>loading...</body></html>')
+        setTimeout(renderIframe, 10, ghPages + '?' + Date.now())
         ;[].forEach.call(
           document.querySelectorAll('a.bg-black.white.selected'),
           function(el) {
