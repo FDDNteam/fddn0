@@ -74,7 +74,7 @@
         fork.stargazers_count +
         '</a><a class="link dim silver" href="' +
         fork.html_url +
-        '/issues" target="_blank">💬</a>'
+        '/wiki" target="_blank">💬</a>'
 
       var li = $('LI')
       li.className = 'lh-copy truncate mb3'
