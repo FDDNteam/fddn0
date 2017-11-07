@@ -26,7 +26,7 @@
   // render
   renderIframe(
     'data:text/html,' +
-      '<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body>'
+      '<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body>' +
       '<ol><li>首先 fork ' +
       BASE_REPO_URL +
       '</li>' +
