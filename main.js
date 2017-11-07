@@ -12,6 +12,10 @@
       'https://api.github.com/repos/' + BASE_REPO + '/forks'
     ).then(function(res) {
       return res.json()
+    }).then(function(data) {
+      return data.sort(function (a, b) {
+        return b.stargazers_count - a.stargazers_count
+      })
     })
   }
 
