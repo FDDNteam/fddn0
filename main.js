@@ -49,37 +49,48 @@
       var ghPages = 'https://' + fork.owner.login + '.github.io/' + fork.name
 
       var link = $('A')
-      link.className = 'pa1 link black dim db'
-      link.innerHTML = fork.name + '<br/>@' + fork.owner.login
+      link.className = 'link black dim dib fw7'
+      link.innerHTML = fork.name
       link.setAttribute('href', '#' + fork.full_name)
       link.setAttribute('title', fork.description)
-      link.addEventListener('click', function() {
-        renderIframe('data:text/html,<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body>loading...</body></html>')
-        setTimeout(renderIframe, 10, ghPages + '?' + Date.now())
-        ;[].forEach.call(
-          document.querySelectorAll('a.bg-black.white.selected'),
-          function(el) {
-            el.className = 'pa1 link black dim'
-          }
-        )
-        link.className += ' bg-black white selected'
-      })
 
       var info = $('DIV')
-      info.className = 'fr'
+      info.className = 'fr silver'
       info.innerHTML =
-        '<a class="link dim silver mr2" href="' +
+        '<a class="link dim mr2" href="' +
         fork.html_url +
         '" target="_blank">⭐ ' +
         fork.stargazers_count +
-        '</a><a class="link dim silver" href="' +
+        '</a><a class="link dim" href="' +
         fork.html_url +
         '/wiki" target="_blank">💬</a>'
+      
+      var user = $('P')
+      user.className = 'ma0'
+      user.innerText =  '@' + fork.owner.login
 
+      link.addEventListener('click', function() {
+        renderIframe(ghPages + '?' + Date.now())
+        ;[].forEach.call(
+          document.querySelectorAll('.bg-black.white.selected'),
+          function(el) {
+            el.className = 'link black dim dib fw7'
+          }
+        )
+        user.className += ' bg-black white selected'
+        link.className += ' bg-black white selected'
+        info.className += ' bg-black white selected'
+      })
+      
+      var div = $('DIV')
+      div.className = 'pa1 db'
+      div.appendChild(link)
+      div.appendChild(info)
+      div.appendChild(user)
+      
       var li = $('LI')
       li.className = 'lh-copy truncate mb3'
-      li.appendChild(link)
-      li.appendChild(info)
+      li.appendChild(div)
 
       $repos.appendChild(li)
     })
