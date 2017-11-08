@@ -55,13 +55,13 @@
       link.setAttribute('title', fork.description)
 
       var info = $('DIV')
-      info.className = 'fr silver'
+      info.className = 'fr'
       info.innerHTML =
-        '<a class="link dim mr2" href="' +
+        '<a class="link dim mr2 silver" href="' +
         fork.html_url +
         '" target="_blank">⭐ ' +
         fork.stargazers_count +
-        '</a><a class="link dim" href="' +
+        '</a><a class="link dim silver" href="' +
         fork.html_url +
         '/wiki" target="_blank">💬</a>'
       
@@ -69,24 +69,23 @@
       user.className = 'ma0'
       user.innerText =  '@' + fork.owner.login
 
-      link.addEventListener('click', function() {
-        renderIframe(ghPages + '?' + Date.now())
-        ;[].forEach.call(
-          document.querySelectorAll('.bg-black.white.selected'),
-          function(el) {
-            el.className = 'link black dim dib fw7'
-          }
-        )
-        user.className += ' bg-black white selected'
-        link.className += ' bg-black white selected'
-        info.className += ' bg-black white selected'
-      })
-      
       var div = $('DIV')
       div.className = 'pa1 db'
       div.appendChild(link)
       div.appendChild(info)
       div.appendChild(user)
+      
+      link.addEventListener('click', function() {
+        renderIframe(ghPages + '?' + Date.now())
+        ;[].forEach.call(
+          document.querySelectorAll('.bg-black.white.selected'),
+          function(el) {
+            el.className = el.className.replace(' bg-black white selected', '')
+          }
+        )
+        link.className += ' bg-black white selected'
+        div.className += ' bg-black white selected'
+      })
       
       var li = $('LI')
       li.className = 'lh-copy truncate mb3'
